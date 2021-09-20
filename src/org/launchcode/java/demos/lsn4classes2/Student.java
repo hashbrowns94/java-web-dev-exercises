@@ -1,4 +1,6 @@
 package org.launchcode.java.demos.lsn4classes2;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Student {
 
@@ -30,13 +32,28 @@ public class Student {
 
 
      //TODO: Uncomment and complete the getGradeLevel method here:
-//    public String getGradeLevel() {
-//        // Determine the grade level of the student based on numberOfCredits
-//    }
+    public String getGradeLevel(int credits) {
+        if (credits <= 29) {
+            return "Freshman";
+        } else if (credits <= 59) {
+            return "Sophomore";
+        } else if (credits <= 89) {
+            return "Junior";
+        } else {
+            return "Senior";
+        }
+    }
 
     // TODO: Complete the addGrade method.
     public void addGrade(int courseCredits, double grade) {
         // Update the appropriate fields: numberOfCredits, gpa
+        double currentTotalQualityScore = this.gpa * this.numberOfCredits;
+        double newQualityScore = grade * courseCredits;
+        double newTotalQualityScore = currentTotalQualityScore + newQualityScore;
+        int newTotalNumberOfCredits = this.numberOfCredits + courseCredits;
+        this.numberOfCredits = newTotalNumberOfCredits;
+        double newGpa = newTotalQualityScore / newTotalNumberOfCredits;
+        this.gpa = newGpa;
     }
 
     // TODO: Add your custom 'toString' method here. Make sure it returns a well-formatted String rather
@@ -85,5 +102,18 @@ public class Student {
         System.out.println(sally);
         sally.addGrade(25, 3.8);
         System.out.println(sally);
+    }
+
+    @Override
+    public String toString(){
+        return this.name + ": " + this.gpa;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (!(obj instanceof Student)) return false;
+        Student myStudentObj = (Student) obj;
+        if (myStudentObj.name.equals(this.name)) return true;
+        else return false;
     }
 }
